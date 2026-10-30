@@ -1,9 +1,3 @@
-# Stash 专用完整分流覆写
-# 适配：单机场订阅；节点名含“日本/美国/新加坡/德国”等地区标识
-# 用法：作为当前机场配置的远程/本地 Override 使用
-# 注意：本文件替换 proxy-groups、rule-providers、rules；不删除机场 proxies 节点。
-# 如果你的 Stash 版本不支持某项规则集或图标 URL，可先删除对应项目再导入。
-
 name: Stash 精细化分流
 desc: 保留机场节点，重建策略组与分流规则；含 AI、流媒体、社交、Apple、金融及游戏分流。
 homepage: https://github.com/ZacBi/Rules
@@ -13,12 +7,12 @@ proxy-groups: #!replace
   - name: 全部节点
     type: select
     include-all: true
-    filter: '(?i)^(?!.*(剩余|流量|到期|过期|套餐|官网|订阅|更新|重置|用户|倍率|余额|traffic|expire|subscription|reset)).*$'
+    filter: "(?i)^(?!.*(剩余|流量|到期|过期|套餐|官网|订阅|更新|重置|用户|倍率|余额|traffic|expire|subscription|reset)).*$"
 
   - name: 自动选择
     type: url-test
     include-all: true
-    filter: '(?i)^(?!.*(剩余|流量|到期|过期|套餐|官网|订阅|更新|重置|用户|倍率|余额|traffic|expire|subscription|reset)).*$'
+    filter: "(?i)^(?!.*(剩余|流量|到期|过期|套餐|官网|订阅|更新|重置|用户|倍率|余额|traffic|expire|subscription|reset)).*$"
     url: https://www.gstatic.com/generate_204
     interval: 600
     tolerance: 100
@@ -39,7 +33,7 @@ proxy-groups: #!replace
   - name: 日本节点
     type: url-test
     include-all: true
-    filter: '(?i)(日本|Japan|(^|[^A-Za-z])JP([^A-Za-z]|$)|Tokyo|Osaka)'
+    filter: "(?i)(日本|Japan|(^|[^A-Za-z])JP([^A-Za-z]|$)|Tokyo|Osaka)"
     url: https://www.gstatic.com/generate_204
     interval: 600
     tolerance: 100
@@ -48,7 +42,7 @@ proxy-groups: #!replace
   - name: 美国节点
     type: url-test
     include-all: true
-    filter: '(?i)(美国|USA?|United States|(^|[^A-Za-z])US([^A-Za-z]|$)|Los Angeles|San Jose|Seattle)'
+    filter: "(?i)(美国|USA?|United States|(^|[^A-Za-z])US([^A-Za-z]|$)|Los Angeles|San Jose|Seattle)"
     url: https://www.gstatic.com/generate_204
     interval: 600
     tolerance: 100
@@ -57,7 +51,7 @@ proxy-groups: #!replace
   - name: 新加坡节点
     type: url-test
     include-all: true
-    filter: '(?i)(新加坡|狮城|Singapore|(^|[^A-Za-z])SG([^A-Za-z]|$))'
+    filter: "(?i)(新加坡|狮城|Singapore|(^|[^A-Za-z])SG([^A-Za-z]|$))"
     url: https://www.gstatic.com/generate_204
     interval: 600
     tolerance: 100
@@ -66,7 +60,7 @@ proxy-groups: #!replace
   - name: 德国节点
     type: url-test
     include-all: true
-    filter: '(?i)(德国|Germany|(^|[^A-Za-z])DE([^A-Za-z]|$)|Frankfurt)'
+    filter: "(?i)(德国|Germany|(^|[^A-Za-z])DE([^A-Za-z]|$)|Frankfurt)"
     url: https://www.gstatic.com/generate_204
     interval: 600
     tolerance: 100
@@ -75,7 +69,7 @@ proxy-groups: #!replace
   - name: AI专线自动
     type: url-test
     include-all: true
-    filter: '(?i)(高速\s*AI|AI流媒体|AI专线)'
+    filter: "(?i)(高速\\s*AI|AI流媒体|AI专线)"
     url: https://www.gstatic.com/generate_204
     interval: 600
     tolerance: 100
@@ -378,7 +372,7 @@ rules: #!replace
   - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
   - IP-CIDR6,::1/128,DIRECT,no-resolve
 
-  # AI：各平台独立策略，避免相互影响
+  # AI：各平台独立策略
   - DOMAIN-SUFFIX,openai.com,ChatGPT
   - DOMAIN-SUFFIX,chatgpt.com,ChatGPT
   - RULE-SET,openai,ChatGPT
@@ -399,12 +393,12 @@ rules: #!replace
   - RULE-SET,microsoft,微软服务
   - RULE-SET,apple,Apple服务
 
-  # 金融网站：默认 DIRECT，可在策略组中手动切换代理
+  # 金融网站
   - RULE-SET,longbridge,金融服务
   - RULE-SET,ibkr,金融服务
   - RULE-SET,tigerfintech,金融服务
 
-  # 游戏与开发服务
+  # 游戏
   - RULE-SET,steam,游戏平台
   - RULE-SET,epic,游戏平台
 
